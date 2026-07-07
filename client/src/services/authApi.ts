@@ -16,6 +16,11 @@ export interface UserResponse {
   isPhoneVerified: boolean;
   isTwoFactorEnabled: boolean;
   isActive: boolean;
+  profile?: {
+    photo?: string;
+    address?: string;
+    dateOfBirth?: string;
+  };
 }
 
 export interface LoginResponse extends AuthTokens {

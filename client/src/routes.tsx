@@ -78,10 +78,20 @@ const generateAuthRoutes = (): React.ReactElement[] => {
   ];
 };
 
+// Generate settings sub-routes (not in menu, linked from settings page)
+const generateSettingsRoutes = (): React.ReactElement[] => {
+  return [
+    <Route key="settings-profile" path="settings/profile" element={lazyLoad("/settings/profile")} />,
+    <Route key="settings-security" path="settings/security" element={lazyLoad("/settings/security")} />,
+    <Route key="settings-sessions" path="settings/sessions" element={lazyLoad("/settings/sessions")} />,
+  ];
+};
+
 // Generate routes from both menu arrays
 const mainRoutes = generateRoutesFromMenuItems(leftMenuItems);
 const bottomRoutes = generateRoutesFromMenuItems(leftMenuBottomItems);
 const authRoutes = generateAuthRoutes();
+const settingsRoutes = generateSettingsRoutes();
 
 // Main Routes component
 const AppRoutes = () => {
@@ -100,6 +110,8 @@ const AppRoutes = () => {
         {/* Routes generated from menu items */}
         {mainRoutes}
         {bottomRoutes}
+        {/* Settings sub-routes */}
+        {settingsRoutes}
       </Route>
       {/* Auth routes with AuthLayout */}
       <Route path="/auth" element={<AuthLayout />}>
