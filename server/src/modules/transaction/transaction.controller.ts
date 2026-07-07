@@ -31,3 +31,56 @@ export const getById = async (req: AuthRequest, res: Response, next: NextFunctio
     next(error);
   }
 };
+
+export const exportCsv = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const q: Record<string, any> = req.query;
+    const csv = await transactionService.exportCsv({
+      type: q.type as string | undefined,
+      status: q.status as string | undefined,
+      startDate: q.startDate as string | undefined,
+      endDate: q.endDate as string | undefined,
+      minAmount: q.minAmount ? Number(q.minAmount) : undefined,
+      maxAmount: q.maxAmount ? Number(q.maxAmount) : undefined,
+      userId: req.user!.userId,
+    });
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader("Content-Disposition", `attachment; filename=transactions-${Date.now()}.csv`);
+    res.send(csv);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const exportPdf = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const q: Record<string, any> = req.query;
+    const pdf = await transactionService.exportPdf({
+      type: q.type as string | undefined,
+      status: q.status as string | undefined,
+      startDate: q.startDate as string | undefined,
+      endDate: q.endDate as string | undefined,
+      minAmount: q.minAmount ? Number(q.minAmount) : undefined,
+      maxAmount: q.maxAmount ? Number(q.maxAmount) : undefined,
+      userId: req.user!.userId,
+    });
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `attachment; filename=statement-${Date.now()}.pdf`);
+    res.send(pdf);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const statement = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const result = await transactionService.generateStatement(
+      req.user!.userId,
+      req.query.startDate as string | undefined,
+      req.query.endDate as string | undefined,
+    );
+    sendSuccess(res, result, "Statement generated");
+  } catch (error) {
+    next(error);
+  }
+};

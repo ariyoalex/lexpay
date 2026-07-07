@@ -150,6 +150,12 @@ export const leftMenuItems: MenuItem[] = [
         href: "/dashboards/send-money",
       },
       {
+        id: "transactions",
+        icon: "NiList",
+        label: "menu-transactions",
+        href: "/dashboards/transactions",
+      },
+      {
         id: "beneficiaries",
         icon: "NiUsers",
         label: "menu-beneficiaries",
