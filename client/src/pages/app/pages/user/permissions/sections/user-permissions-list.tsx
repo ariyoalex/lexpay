@@ -380,7 +380,6 @@ export default function UserPermissionsList() {
       initialState={{
         columns: { columnVisibilityModel: { id: false } },
       }}
-      pagination={false}
       hideFooter
       getRowSpacing={getRowSpacing}
       rowHeight={68}

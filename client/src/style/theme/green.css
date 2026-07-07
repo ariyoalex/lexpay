@@ -4,9 +4,9 @@
 
 @layer base {
   .theme-green {
-    --primary: 99 53% 48%;
-    --primary-light: 99 53% 58%;
-    --primary-dark: 99 53% 38%;
+    --primary: 88 43% 43%;
+    --primary-light: 88 43% 53%;
+    --primary-dark: 88 43% 33%;
 
     --secondary: 150 69% 34%;
     --secondary-light: 150 69% 44%;
@@ -31,9 +31,9 @@
     color-scheme: light;
   }
   .theme-green.dark {
-    --primary: 99 53% 48%;
-    --primary-light: 99 53% 58%;
-    --primary-dark: 99 53% 38%;
+    --primary: 88 43% 43%;
+    --primary-light: 88 43% 53%;
+    --primary-dark: 88 43% 33%;
 
     --secondary: 150 69% 34%;
     --secondary-light: 150 69% 44%;

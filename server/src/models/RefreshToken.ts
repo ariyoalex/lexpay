@@ -16,7 +16,7 @@ const refreshTokenSchema = new Schema<IRefreshToken>(
     isRevoked: { type: Boolean, default: false },
     expiresAt: { type: Date, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<IRefreshToken>("RefreshToken", refreshTokenSchema);

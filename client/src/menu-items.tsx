@@ -1475,7 +1475,7 @@ export const leftMenuItems: MenuItem[] = [
     icon: "NiArrowUpRightSquare",
     label: "menu-external-link",
     color: "text-primary",
-    href: "https://themeforest.net/item/gogo-vite/22544383",
+    href: "https://lexpay.com",
     isExternalLink: true,
   },
   {

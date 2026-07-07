@@ -32,7 +32,7 @@ const notificationSchema = new Schema<INotification>(
     },
     sentAt: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<INotification>("Notification", notificationSchema);

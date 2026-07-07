@@ -25,8 +25,8 @@ import NiEllipsisVertical from "@/icons/nexture/ni-ellipsis-vertical";
 import NiEyeInactive from "@/icons/nexture/ni-eye-inactive";
 import NiFilter from "@/icons/nexture/ni-filter";
 import NiFilterPlus from "@/icons/nexture/ni-filter-plus";
-import NiPushPinLeft from "@/icons/nexture/ni-push-pin-left";
-import NiPushPinRight from "@/icons/nexture/ni-push-pin-right";
+
+
 import NiSearch from "@/icons/nexture/ni-search";
 
 const columns: GridColDef<(typeof rows)[number]>[] = [
@@ -113,8 +113,6 @@ const rows = [
     products: generateProducts(),
   },
 ];
-
-type Customer = (typeof rows)[number];
 
 export default function MasterDetailBasic() {
   return (

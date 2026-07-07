@@ -24,7 +24,7 @@ const otpSchema = new Schema<IOTP>(
     isUsed: { type: Boolean, default: false },
     expiresAt: { type: Date, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<IOTP>("OTP", otpSchema);

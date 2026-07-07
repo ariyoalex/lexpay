@@ -3,7 +3,7 @@ import DashboardLearningCourses from "./sections/dashboard-learning-courses";
 import DashboardLearningLevels from "./sections/dashboard-learning-levels";
 import DashboardLearningRecommended from "./sections/dashboard-learning-recommended";
 import DashboardLearningSchedule from "./sections/dashboard-learning-schedule";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -71,7 +71,7 @@ export default function Page() {
                   desktopPaper: { className: "outlined" },
                 }}
                 value={date}
-                onChange={(newValue) => setDate(newValue)}
+                onChange={(newValue: any) => setDate(newValue)}
               />
             </LocalizationProvider>
           </FormControl>

@@ -5,7 +5,7 @@ import DashboardCommerceStats from "./sections/dashboard-commerce-stats";
 import DashboardCommerceTopSearchTerms from "./sections/dashboard-commerce-top-search-terms";
 import DashboardCommerceTrafficSources from "./sections/dashboard-commerce-traffic-sources";
 import DashboardCommerceWeeklyPerformance from "./sections/dashboard-commerce-weekly-performance";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -73,7 +73,7 @@ export default function Page() {
                   desktopPaper: { className: "outlined" },
                 }}
                 value={date}
-                onChange={(newValue) => setDate(newValue)}
+                onChange={(newValue: any) => setDate(newValue)}
               />
             </LocalizationProvider>
           </FormControl>

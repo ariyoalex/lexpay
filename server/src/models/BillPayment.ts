@@ -36,7 +36,7 @@ const billPaymentSchema = new Schema<IBillPayment>(
     },
     providerReference: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<IBillPayment>("BillPayment", billPaymentSchema);

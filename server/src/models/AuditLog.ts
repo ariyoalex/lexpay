@@ -28,7 +28,7 @@ const auditLogSchema = new Schema<IAuditLog>(
       default: "info",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<IAuditLog>("AuditLog", auditLogSchema);

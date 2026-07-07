@@ -8,7 +8,7 @@ import DashboardAnalyticsProgresses from "./sections/dashboard-analytics-progres
 import DashboardAnalyticsSales from "./sections/dashboard-analytics-sales";
 import DashboardAnalyticsStats from "./sections/dashboard-analytics-stats";
 import DashboardAnalyticsVisits from "./sections/dashboard-analytics-visits";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -75,7 +75,7 @@ export default function Page() {
                   desktopPaper: { className: "outlined" },
                 }}
                 value={date}
-                onChange={(newValue) => setDate(newValue)}
+                onChange={(newValue: any) => setDate(newValue)}
               />
             </LocalizationProvider>
           </FormControl>

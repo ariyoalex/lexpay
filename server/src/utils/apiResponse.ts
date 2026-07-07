@@ -24,7 +24,7 @@ export interface ErrorResponse {
 export const successResponse = <T>(
   data: T,
   message = "Operation completed successfully",
-  meta?: ApiResponseMeta
+  meta?: ApiResponseMeta,
 ): SuccessResponse<T> => ({
   success: true,
   message,
@@ -32,11 +32,7 @@ export const successResponse = <T>(
   ...(meta ? { meta } : {}),
 });
 
-export const errorResponse = (
-  message: string,
-  code = "INTERNAL_ERROR",
-  details?: unknown
-): ErrorResponse => ({
+export const errorResponse = (message: string, code = "INTERNAL_ERROR", details?: unknown): ErrorResponse => ({
   success: false,
   message,
   error: { code, details },

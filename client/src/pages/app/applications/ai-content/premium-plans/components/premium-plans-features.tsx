@@ -21,8 +21,6 @@ import NiEllipsisVertical from "@/icons/nexture/ni-ellipsis-vertical";
 import NiEyeInactive from "@/icons/nexture/ni-eye-inactive";
 import NiFilter from "@/icons/nexture/ni-filter";
 import NiFilterPlus from "@/icons/nexture/ni-filter-plus";
-import NiPushPinLeft from "@/icons/nexture/ni-push-pin-left";
-import NiPushPinRight from "@/icons/nexture/ni-push-pin-right";
 import NiSearch from "@/icons/nexture/ni-search";
 
 const initialRows = [
@@ -273,7 +271,6 @@ export default function PremiumPlansFeatures() {
         initialState={{
           columns: { columnVisibilityModel: { id: false } },
         }}
-        pagination={false}
         hideFooter
         getRowSpacing={getRowSpacing}
         rowHeight={68}
@@ -311,8 +308,6 @@ export default function PremiumPlansFeatures() {
           columnMenuHideIcon: NiEyeInactive,
           columnMenuClearIcon: NiCross,
           columnMenuManageColumnsIcon: NiCols,
-          columnMenuPinLeftIcon: NiPushPinLeft,
-          columnMenuPinRightIcon: NiPushPinRight,
           filterPanelDeleteIcon: NiCross,
           filterPanelRemoveAllIcon: NiBinEmpty,
           baseSelect: (props: any) => {

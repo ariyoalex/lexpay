@@ -260,7 +260,7 @@ export default function UserOverviewContributions() {
               gap: `${grid.gap}px`,
             }}
           >
-            {grid.gridData.map(({ x, y, value, key }) => {
+            {grid.gridData.map(({ value, key }) => {
               const intensity = maxVal > 0 ? value / maxVal : 0;
               return (
                 <Box

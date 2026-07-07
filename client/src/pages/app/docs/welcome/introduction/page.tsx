@@ -168,7 +168,7 @@ export default function DocsWelcomeIntroduction() {
                     color="primary"
                     variant="pastel"
                     startIcon={<NiCatalog size={"medium"} />}
-                    to="https://www.figma.com/design/ZMvZsFJc498q1Y11FroNaW/gogo-design-7.3.0?node-id=1381-11546&t=ZgHIoeE8mt3tfiNR-1"
+                    to="https://www.figma.com/community/tag/lexpay"
                     target="_blank"
                     component={Link}
                   >

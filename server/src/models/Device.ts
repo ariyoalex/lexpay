@@ -24,7 +24,7 @@ const deviceSchema = new Schema<IDevice>(
     lastUsed: { type: Date },
     firstUsed: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 deviceSchema.index({ userId: 1, fingerprint: 1 }, { unique: true });

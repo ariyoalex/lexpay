@@ -34,7 +34,7 @@ const walletSchema = new Schema<IWallet>(
     lastMonthlyReset: { type: Date },
     pinSetAt: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<IWallet>("Wallet", walletSchema);

@@ -36,7 +36,7 @@ const savingsPlanSchema = new Schema<ISavingsPlan>(
     },
     completedAt: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<ISavingsPlan>("SavingsPlan", savingsPlanSchema);

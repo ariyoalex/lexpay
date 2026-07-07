@@ -3,7 +3,20 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface ITransaction extends Document {
   reference: string;
   userId: mongoose.Types.ObjectId;
-  type: "credit" | "debit" | "transfer_in" | "transfer_out" | "funding" | "withdrawal" | "bill_payment" | "airtime" | "data" | "savings_deposit" | "savings_withdrawal" | "fee" | "reversal";
+  type:
+    | "credit"
+    | "debit"
+    | "transfer_in"
+    | "transfer_out"
+    | "funding"
+    | "withdrawal"
+    | "bill_payment"
+    | "airtime"
+    | "data"
+    | "savings_deposit"
+    | "savings_withdrawal"
+    | "fee"
+    | "reversal";
   amount: number;
   fee: number;
   balanceBefore: number;
@@ -34,7 +47,21 @@ const transactionSchema = new Schema<ITransaction>(
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     type: {
       type: String,
-      enum: ["credit", "debit", "transfer_in", "transfer_out", "funding", "withdrawal", "bill_payment", "airtime", "data", "savings_deposit", "savings_withdrawal", "fee", "reversal"],
+      enum: [
+        "credit",
+        "debit",
+        "transfer_in",
+        "transfer_out",
+        "funding",
+        "withdrawal",
+        "bill_payment",
+        "airtime",
+        "data",
+        "savings_deposit",
+        "savings_withdrawal",
+        "fee",
+        "reversal",
+      ],
       required: true,
     },
     amount: { type: Number, required: true },
@@ -64,7 +91,7 @@ const transactionSchema = new Schema<ITransaction>(
     ipAddress: { type: String },
     deviceId: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<ITransaction>("Transaction", transactionSchema);

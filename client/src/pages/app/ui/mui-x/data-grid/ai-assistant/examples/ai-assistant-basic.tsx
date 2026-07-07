@@ -13,34 +13,20 @@ import {
 
 import DataGridDateFilter from "@/components/data-grid/data-grid-date-filter";
 import DataGridInputFilter from "@/components/data-grid/data-grid-input-filter";
-import NiAI from "@/icons/nexture/ni-ai";
 import NiArrowDown from "@/icons/nexture/ni-arrow-down";
 import NiArrowInDown from "@/icons/nexture/ni-arrow-in-down";
 import NiArrowUp from "@/icons/nexture/ni-arrow-up";
 import NiBinEmpty from "@/icons/nexture/ni-bin-empty";
-import NiCheck from "@/icons/nexture/ni-check";
 import NiChevronDownSmall from "@/icons/nexture/ni-chevron-down-small";
 import NiChevronLeftRightSmall from "@/icons/nexture/ni-chevron-left-right-small";
-import NiChevronUpSmall from "@/icons/nexture/ni-chevron-up-small";
-import NiClock from "@/icons/nexture/ni-clock";
 import NiCols from "@/icons/nexture/ni-cols";
 import NiCross from "@/icons/nexture/ni-cross";
 import NiEllipsisVertical from "@/icons/nexture/ni-ellipsis-vertical";
-import NiEndDownSmall from "@/icons/nexture/ni-end-down-small";
-import NiEndUpSmall from "@/icons/nexture/ni-end-up-small";
 import NiEyeInactive from "@/icons/nexture/ni-eye-inactive";
 import NiFilter from "@/icons/nexture/ni-filter";
 import NiFilterPlus from "@/icons/nexture/ni-filter-plus";
-import NiGroup from "@/icons/nexture/ni-group";
-import NiMicrophone from "@/icons/nexture/ni-microphone";
-import NiPivot from "@/icons/nexture/ni-pivot";
 import NiPlus from "@/icons/nexture/ni-plus";
-import NiPushPinLeft from "@/icons/nexture/ni-push-pin-left";
-import NiPushPinRight from "@/icons/nexture/ni-push-pin-right";
 import NiSearch from "@/icons/nexture/ni-search";
-import NiSendUpRight from "@/icons/nexture/ni-send-up-right";
-import NiSum from "@/icons/nexture/ni-sum";
-import NiUngroup from "@/icons/nexture/ni-ungroup";
 import { cn } from "@/lib/utils";
 
 export default function AIAssistantBasic() {

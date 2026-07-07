@@ -39,7 +39,7 @@ export default function LPTopNav() {
           size="large"
           color="text-primary"
           target="_blank"
-          to="https://www.figma.com/design/ZMvZsFJc498q1Y11FroNaW/gogo-design-7.3.0?node-id=1381-11546&t=ZgHIoeE8mt3tfiNR-1"
+          to="https://www.figma.com/community/tag/lexpay"
           component={Link}
         >
           {t("footer-figma")}

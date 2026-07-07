@@ -35,8 +35,7 @@ import NiEyeInactive from "@/icons/nexture/ni-eye-inactive";
 import NiFilter from "@/icons/nexture/ni-filter";
 import NiFilterPlus from "@/icons/nexture/ni-filter-plus";
 import NiPlus from "@/icons/nexture/ni-plus";
-import NiPushPinLeft from "@/icons/nexture/ni-push-pin-left";
-import NiPushPinRight from "@/icons/nexture/ni-push-pin-right";
+
 import NiSearch from "@/icons/nexture/ni-search";
 import NiStar from "@/icons/nexture/ni-star";
 

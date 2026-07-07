@@ -7,44 +7,26 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import {
-  DataGrid,
-  GridColDef,
-  GridRenderEditCellParams,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderEditCellParams } from "@mui/x-data-grid";
 
 import DataGridInput from "@/components/data-grid/data-grid-input";
-import NiAI from "@/icons/nexture/ni-ai";
 import NiArrowDown from "@/icons/nexture/ni-arrow-down";
 import NiArrowInDown from "@/icons/nexture/ni-arrow-in-down";
 import NiArrowUp from "@/icons/nexture/ni-arrow-up";
 import NiBinEmpty from "@/icons/nexture/ni-bin-empty";
-import NiCheck from "@/icons/nexture/ni-check";
 import NiChevronDownSmall from "@/icons/nexture/ni-chevron-down-small";
 import NiChevronLeftRightSmall from "@/icons/nexture/ni-chevron-left-right-small";
-import NiChevronUpSmall from "@/icons/nexture/ni-chevron-up-small";
-import NiClock from "@/icons/nexture/ni-clock";
 import NiCols from "@/icons/nexture/ni-cols";
 import NiCross from "@/icons/nexture/ni-cross";
 import NiEllipsisVertical from "@/icons/nexture/ni-ellipsis-vertical";
-import NiEndDownSmall from "@/icons/nexture/ni-end-down-small";
-import NiEndUpSmall from "@/icons/nexture/ni-end-up-small";
 import NiEyeInactive from "@/icons/nexture/ni-eye-inactive";
 import NiFilter from "@/icons/nexture/ni-filter";
 import NiFilterPlus from "@/icons/nexture/ni-filter-plus";
-import NiGroup from "@/icons/nexture/ni-group";
-import NiMicrophone from "@/icons/nexture/ni-microphone";
-import NiPivot from "@/icons/nexture/ni-pivot";
 import NiPlus from "@/icons/nexture/ni-plus";
-import NiPushPinLeft from "@/icons/nexture/ni-push-pin-left";
-import NiPushPinRight from "@/icons/nexture/ni-push-pin-right";
 import NiSearch from "@/icons/nexture/ni-search";
-import NiSendUpRight from "@/icons/nexture/ni-send-up-right";
-import NiSum from "@/icons/nexture/ni-sum";
-import NiUngroup from "@/icons/nexture/ni-ungroup";
 
 export default function ClipboardPasteBasic() {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const processRowUpdate = useCallback(async (newRow: any) => {
     await new Promise((resolve) => {
@@ -54,17 +36,6 @@ export default function ClipboardPasteBasic() {
   }, []);
 
   const confirm = useConfirm();
-  const confirmPaste = useCallback<() => Promise<void>>(() => {
-    return new Promise((resolve, reject) => {
-      confirm.open((confirmed) => {
-        if (confirmed) {
-          resolve();
-        } else {
-          reject();
-        }
-      });
-    });
-  }, [confirm]);
 
   return (
     <div style={{ width: "100%", height: 400 }}>
@@ -100,46 +71,12 @@ export default function ClipboardPasteBasic() {
           columnMenuHideIcon: NiEyeInactive,
           columnMenuClearIcon: NiCross,
           columnMenuManageColumnsIcon: NiCols,
-          columnMenuPinLeftIcon: NiPushPinLeft,
-          columnMenuPinRightIcon: NiPushPinRight,
-          columnMenuAggregationIcon: NiSum,
-          columnMenuGroupIcon: NiGroup,
-          columnMenuUngroupIcon: NiUngroup,
           filterPanelDeleteIcon: NiCross,
           filterPanelAddIcon: NiPlus,
           filterPanelRemoveAllIcon: NiBinEmpty,
-          pivotIcon: NiPivot,
           columnSelectorIcon: NiCols,
           exportIcon: NiArrowInDown,
           openFilterButtonIcon: NiFilter,
-          collapsibleIcon: NiChevronDownSmall,
-          pivotMenuAddIcon: () => {
-            return <NiPlus size={"small"}></NiPlus>;
-          },
-          pivotMenuCheckIcon: () => {
-            return <NiCheck size={"small"}></NiCheck>;
-          },
-          pivotMenuMoveDownIcon: () => {
-            return <NiChevronDownSmall size={"small"}></NiChevronDownSmall>;
-          },
-          pivotMenuMoveUpIcon: () => {
-            return <NiChevronUpSmall size={"small"}></NiChevronUpSmall>;
-          },
-          pivotMenuMoveToBottomIcon: () => {
-            return <NiEndDownSmall size={"small"}></NiEndDownSmall>;
-          },
-          pivotMenuMoveToTopIcon: () => {
-            return <NiEndUpSmall size={"small"}></NiEndUpSmall>;
-          },
-          pivotMenuRemoveIcon: () => {
-            return <NiCross size={"small"}></NiCross>;
-          },
-          pivotSearchIcon: () => {
-            return <NiSearch size={"small"}></NiSearch>;
-          },
-          pivotSearchClearIcon: () => {
-            return <NiCross size={"medium"} />;
-          },
           baseSelect: (props) => {
             const propsCasted = props as SelectProps;
             return (

@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import logger from "./logger";
 
 const connectDatabase = async (uri: string): Promise<void> => {
+  if (!uri) {
+    logger.warn("No MONGODB_URI provided, skipping database connection");
+    return;
+  }
+
   try {
     await mongoose.connect(uri);
     logger.info("MongoDB connected successfully");
@@ -14,8 +19,7 @@ const connectDatabase = async (uri: string): Promise<void> => {
       logger.warn("MongoDB disconnected");
     });
   } catch (error) {
-    logger.error("MongoDB connection failed", { error });
-    process.exit(1);
+    logger.warn("MongoDB not available, continuing without database", { error });
   }
 };
 

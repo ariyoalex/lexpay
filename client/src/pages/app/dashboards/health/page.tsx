@@ -4,7 +4,7 @@ import DashboardHealthDoctors from "./sections/dashboard-health-doctors";
 import DashboardHealthInfo from "./sections/dashboard-health-info";
 import DashboardHealthResults from "./sections/dashboard-health-results";
 import DashboardHealthVitals from "./sections/dashboard-health-vitals";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -72,7 +72,7 @@ export default function Page() {
                   desktopPaper: { className: "outlined" },
                 }}
                 value={date}
-                onChange={(newValue) => setDate(newValue)}
+                onChange={(newValue: any) => setDate(newValue)}
               />
             </LocalizationProvider>
           </FormControl>

@@ -18,9 +18,9 @@ export default function Page() {
                   Terms and Conditions
                 </Typography>
                 <Typography variant="body1" className="text-text-primary">
-                  Welcome to LexPay! These terms and conditions outline the rules and regulations for the use of LexPay.app.
-                  By accessing this website we assume you accept these terms and conditions. Do not continue to use
-                  LexPay.app if you do not agree to all of the terms and conditions stated on this page.
+                  Welcome to LexPay! These terms and conditions outline the rules and regulations for the use of
+                  LexPay.app. By accessing this website we assume you accept these terms and conditions. Do not continue
+                  to use LexPay.app if you do not agree to all of the terms and conditions stated on this page.
                 </Typography>
               </Box>
 
@@ -39,8 +39,8 @@ export default function Page() {
                   2. Intellectual Property Rights
                 </Typography>
                 <Typography variant="body1">
-                  Other than the content you own, under these Terms, LexPay and/or its licensors own all the intellectual
-                  property rights and materials contained in this Website.
+                  Other than the content you own, under these Terms, LexPay and/or its licensors own all the
+                  intellectual property rights and materials contained in this Website.
                 </Typography>
                 <br />
 
@@ -60,10 +60,10 @@ export default function Page() {
                   4. Your Content
                 </Typography>
                 <Typography variant="body1">
-                  In these Website Standard Terms and Conditions, ).replace(u201d, Your Content” shall mean any audio, video text,
-                  images or other material you choose to display on this Website. Your Content must be your own and must
-                  not be infringing on any third partys rights. You agree to use this site responsibly. By accessing
-                  this platform, you shall not:
+                  In these Website Standard Terms and Conditions, ).replace(u201d, Your Content” shall mean any audio,
+                  video text, images or other material you choose to display on this Website. Your Content must be your
+                  own and must not be infringing on any third partys rights. You agree to use this site responsibly. By
+                  accessing this platform, you shall not:
                 </Typography>
                 <ul className="list-inside list-disc [&>li]:ms-2 [&>li:first-of-type]:mt-1">
                   <li>Use the service for unlawful purposes</li>
@@ -77,8 +77,8 @@ export default function Page() {
                   5. No warranties
                 </Typography>
                 <Typography variant="body1">
-                  This Website is provided ).replace(u201d, as is,” with all faults, and LexPay expresses no representations or
-                  warranties.
+                  This Website is provided ).replace(u201d, as is,” with all faults, and LexPay expresses no
+                  representations or warranties.
                 </Typography>
                 <br />
 
@@ -86,8 +86,8 @@ export default function Page() {
                   6. Limitation of liability
                 </Typography>
                 <Typography variant="body1">
-                  In no event shall LexPay, nor any of its officers, directors and employees, be held liable for anything
-                  arising out of or in any way connected with your use of this Website.
+                  In no event shall LexPay, nor any of its officers, directors and employees, be held liable for
+                  anything arising out of or in any way connected with your use of this Website.
                 </Typography>
                 <br />
 

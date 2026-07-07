@@ -7,11 +7,73 @@ export const randomCreatedDate = () => randomDate(new Date(2020, 0, 1), new Date
 export const randomUpdatedDate = () => randomDate(new Date(2023, 0, 1), new Date());
 export const randomId = () => Math.random().toString(36).substring(2, 10);
 
-const firstNames = ["James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael", "Linda", "William", "Elizabeth", "David", "Barbara", "Richard", "Susan", "Joseph", "Jessica"];
-const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas"];
-const movieNames = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "12 Angry Men", "Schindler's List", "Pulp Fiction", "The Lord of the Rings", "Forrest Gump", "Inception", "Fight Club", "Goodfellas", "The Matrix", "Interstellar", "Parasite", "Coco", "Dune"];
+const firstNames = [
+  "James",
+  "Mary",
+  "John",
+  "Patricia",
+  "Robert",
+  "Jennifer",
+  "Michael",
+  "Linda",
+  "William",
+  "Elizabeth",
+  "David",
+  "Barbara",
+  "Richard",
+  "Susan",
+  "Joseph",
+  "Jessica",
+];
+const lastNames = [
+  "Smith",
+  "Johnson",
+  "Williams",
+  "Brown",
+  "Jones",
+  "Garcia",
+  "Miller",
+  "Davis",
+  "Rodriguez",
+  "Martinez",
+  "Hernandez",
+  "Lopez",
+  "Gonzalez",
+  "Wilson",
+  "Anderson",
+  "Thomas",
+];
+const movieNames = [
+  "The Shawshank Redemption",
+  "The Godfather",
+  "The Dark Knight",
+  "12 Angry Men",
+  "Schindler's List",
+  "Pulp Fiction",
+  "The Lord of the Rings",
+  "Forrest Gump",
+  "Inception",
+  "Fight Club",
+  "Goodfellas",
+  "The Matrix",
+  "Interstellar",
+  "Parasite",
+  "Coco",
+  "Dune",
+];
 
-const companyNames = ["TechCorp", "Innovate Inc", "DataFlow", "CloudBase", "NexGen", "AlphaByte", "QuantumSoft", "Pinnacle Systems", "Horizon Tech", "Stellar Solutions"];
+const companyNames = [
+  "TechCorp",
+  "Innovate Inc",
+  "DataFlow",
+  "CloudBase",
+  "NexGen",
+  "AlphaByte",
+  "QuantumSoft",
+  "Pinnacle Systems",
+  "Horizon Tech",
+  "Stellar Solutions",
+];
 
 export const randomTraderName = () => {
   const first = firstNames[Math.floor(Math.random() * firstNames.length)];
@@ -30,14 +92,33 @@ export const randomArrayItem = <T>(arr: T[]): T => arr[Math.floor(Math.random() 
 export const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 export const randomPrice = (min: number, max: number) => Math.round((Math.random() * (max - min) + min) * 100) / 100;
 export const randomCurrency = () => randomArrayItem(["USD", "EUR", "GBP", "JPY", "BRL"]);
-export const randomCountry = () => randomArrayItem(["USA", "Canada", "France", "Germany", "Brazil", "Japan", "Australia", "UK"]);
-export const randomCity = () => randomArrayItem(["New York", "Toronto", "Paris", "Berlin", "São Paulo", "Tokyo", "Sydney", "London"]);
-export const randomAddress = () => `${randomInt(100, 9999)} ${randomArrayItem(["Main St", "Oak Ave", "Elm St", "Park Blvd", "Broadway", "1st Ave"])}`;
+export const randomCountry = () =>
+  randomArrayItem(["USA", "Canada", "France", "Germany", "Brazil", "Japan", "Australia", "UK"]);
+export const randomCity = () =>
+  randomArrayItem(["New York", "Toronto", "Paris", "Berlin", "São Paulo", "Tokyo", "Sydney", "London"]);
+export const randomAddress = () =>
+  `${randomInt(100, 9999)} ${randomArrayItem(["Main St", "Oak Ave", "Elm St", "Park Blvd", "Broadway", "1st Ave"])}`;
 export const randomUserName = () => {
   const name = randomTraderName().toLowerCase().replace(" ", "");
   return `@${name}${randomInt(10, 99)}`;
 };
-const commodities = ["Corn", "Wheat", "Soybeans", "Coffee", "Sugar", "Cotton", "Rice", "Oats", "Barley", "Gold", "Silver", "Copper", "Oil", "Gas", "Cocoa"];
+const commodities = [
+  "Corn",
+  "Wheat",
+  "Soybeans",
+  "Coffee",
+  "Sugar",
+  "Cotton",
+  "Rice",
+  "Oats",
+  "Barley",
+  "Gold",
+  "Silver",
+  "Copper",
+  "Oil",
+  "Gas",
+  "Cocoa",
+];
 export const randomCommodity = () => randomArrayItem(commodities);
 
 export interface UseDemoDataOptions {
@@ -94,5 +175,5 @@ export const useMovieData = () => {
     { field: "gross", headerName: "Gross ($M)", type: "number" as const, width: 120 },
   ];
 
-  return { data: { rows, columns } };
+  return { rows, columns };
 };

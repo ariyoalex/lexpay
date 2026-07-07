@@ -6,7 +6,7 @@ import DashboardVisualStats from "./sections/dashboard-visual-stats";
 import DashboardVisualStocks from "./sections/dashboard-visual-stocks";
 import DashboardVisualTasks from "./sections/dashboard-visual-tasks";
 import DashboardVisualRecentTickets from "./sections/dashboard-visual-tickets";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -74,7 +74,7 @@ export default function Page() {
                   desktopPaper: { className: "outlined" },
                 }}
                 value={date}
-                onChange={(newValue) => setDate(newValue)}
+                onChange={(newValue: any) => setDate(newValue)}
               />
             </LocalizationProvider>
           </FormControl>

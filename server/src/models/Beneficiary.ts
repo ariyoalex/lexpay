@@ -22,7 +22,7 @@ const beneficiarySchema = new Schema<IBeneficiary>(
     isInternal: { type: Boolean, default: false },
     internalUserId: { type: Schema.Types.ObjectId, ref: "User" },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<IBeneficiary>("Beneficiary", beneficiarySchema);

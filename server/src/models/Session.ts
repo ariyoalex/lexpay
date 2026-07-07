@@ -34,7 +34,7 @@ const sessionSchema = new Schema<ISession>(
     lastActivity: { type: Date },
     expiresAt: { type: Date, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<ISession>("Session", sessionSchema);

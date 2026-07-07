@@ -102,7 +102,7 @@ export default function SaveAndRestoreStateBasic() {
   const [savedState, setSavedState] = useState<{
     count: number;
     initialState: GridInitialState;
-  }>({     count: 0, initialState: { pagination: { paginationModel: { pageSize: 5 } } } as GridInitialState });
+  }>({ count: 0, initialState: { pagination: { paginationModel: { pageSize: 5 } } } as GridInitialState });
 
   const syncState = useCallback((newInitialState: GridInitialState) => {
     setSavedState((prev) => ({

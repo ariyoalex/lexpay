@@ -34,7 +34,7 @@ const activityLogSchema = new Schema<IActivityLog>(
       lon: { type: Number },
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<IActivityLog>("ActivityLog", activityLogSchema);

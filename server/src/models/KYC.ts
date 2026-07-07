@@ -38,7 +38,7 @@ const kycSchema = new Schema<IKYC>(
     reviewedAt: { type: Date },
     submittedAt: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model<IKYC>("KYC", kycSchema);

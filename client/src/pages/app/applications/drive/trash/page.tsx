@@ -73,8 +73,6 @@ import NiFilterPlus from "@/icons/nexture/ni-filter-plus";
 import NiFolder from "@/icons/nexture/ni-folder";
 import NiPenSquare from "@/icons/nexture/ni-pen-square";
 import NiPrinter from "@/icons/nexture/ni-printer";
-import NiPushPinLeft from "@/icons/nexture/ni-push-pin-left";
-import NiPushPinRight from "@/icons/nexture/ni-push-pin-right";
 import NiRefresh from "@/icons/nexture/ni-refresh";
 import NiSearch from "@/icons/nexture/ni-search";
 import NiSquircle from "@/icons/nexture/ni-squircle";
@@ -777,8 +775,6 @@ export default function Page() {
             columnMenuIcon: () => {
               return <NiEllipsisVertical size={"small"}></NiEllipsisVertical>;
             },
-            columnMenuPinLeftIcon: NiPushPinLeft,
-            columnMenuPinRightIcon: NiPushPinRight,
             columnMenuSortAscendingIcon: NiArrowUp,
             columnMenuSortDescendingIcon: NiArrowDown,
             columnMenuFilterIcon: NiFilter,

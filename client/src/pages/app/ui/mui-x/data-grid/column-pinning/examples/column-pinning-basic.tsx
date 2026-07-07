@@ -1,5 +1,10 @@
 import { Box, Button, FormControl, InputLabel, Select, SelectProps } from "@mui/material";
-import { randomCreatedDate, randomEmail, randomTraderName, randomUpdatedDate } from "../../../../../../../utils/mockData";
+import {
+  randomCreatedDate,
+  randomEmail,
+  randomTraderName,
+  randomUpdatedDate,
+} from "../../../../../../../utils/mockData";
 import { DataGrid, GridActionsCellItem, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 
 import NiArrowDown from "@/icons/nexture/ni-arrow-down";
