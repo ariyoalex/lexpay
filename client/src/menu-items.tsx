@@ -142,6 +142,20 @@ export const leftMenuItems: MenuItem[] = [
     description: "menu-wallet-description",
     color: "text-primary",
     href: "/dashboards/wallet",
+    children: [
+      {
+        id: "fund-wallet",
+        label: "menu-fund-wallet",
+        href: "/dashboards/fund-wallet",
+        hideInMenu: true,
+      },
+      {
+        id: "funding-success",
+        label: "menu-funding-success",
+        href: "/dashboards/funding-success",
+        hideInMenu: true,
+      },
+    ],
   },
   {
     id: "applications",
