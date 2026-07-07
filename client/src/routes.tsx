@@ -128,6 +128,8 @@ const AppRoutes = () => {
         <Route path="/manage/dashboard" element={lazyLoad("/manage/dashboard")} />
         <Route path="/manage/users" element={lazyLoad("/manage/users")} />
         <Route path="/manage/transactions" element={lazyLoad("/manage/transactions")} />
+        <Route path="/manage/audit-logs" element={lazyLoad("/manage/audit-logs")} />
+        <Route path="/manage/broadcast" element={lazyLoad("/manage/broadcast")} />
       </Route>
 
       {/* Auth routes with AuthLayout */}

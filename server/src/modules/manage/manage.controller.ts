@@ -22,6 +22,15 @@ export const users = async (req: AuthRequest, res: Response, next: NextFunction)
   }
 };
 
+export const userDetail = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const result = await manageService.getUserDetail(req.params.id as string);
+    sendSuccess(res, result, "User detail retrieved");
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const toggleStatus = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const result = await manageService.toggleUserStatus(req.params.id as string);

@@ -15,12 +15,14 @@ import {
   Typography,
 } from "@mui/material";
 
+import UserDetailModal from "@/components/manage/UserDetailModal";
 import { listManageUsersApi, type ManageUser, toggleUserStatusApi } from "@/services/manageApi";
 
 export default function Page() {
   const [users, setUsers] = useState<ManageUser[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
   const fetchUsers = useCallback(async () => {
     setLoading(true);
@@ -55,10 +57,7 @@ export default function Page() {
 
       <Input
         value={search}
-        onChange={(e) => {
-          setSearch(e.target.value);
-          setPage(1);
-        }}
+        onChange={(e) => setSearch(e.target.value)}
         placeholder="Search by name, email, or phone..."
         sx={{ mb: 3, width: 360 }}
       />
@@ -80,7 +79,7 @@ export default function Page() {
             </TableHead>
             <TableBody>
               {users.map((u) => (
-                <TableRow key={u._id}>
+                <TableRow key={u._id} hover sx={{ cursor: "pointer" }} onClick={() => setSelectedUserId(u._id)}>
                   <TableCell>
                     {u.firstName} {u.lastName}
                   </TableCell>
@@ -98,7 +97,10 @@ export default function Page() {
                     <Button
                       size="small"
                       color={u.isActive ? "error" : "success"}
-                      onClick={() => handleToggleStatus(u._id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleToggleStatus(u._id);
+                      }}
                     >
                       {u.isActive ? "Suspend" : "Activate"}
                     </Button>
@@ -109,6 +111,8 @@ export default function Page() {
           </Table>
         </TableContainer>
       )}
+
+      <UserDetailModal userId={selectedUserId} onClose={() => setSelectedUserId(null)} />
     </Box>
   );
 }

@@ -14,6 +14,7 @@ router.get("/dashboard", manageController.dashboard);
 
 router.get("/users", manageController.users);
 router.put("/users/:id/toggle-status", manageController.toggleStatus);
+router.get("/users/:id", manageController.userDetail);
 
 router.get("/transactions", manageController.transactions);
 

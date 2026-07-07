@@ -59,6 +59,16 @@ export const listUsers = async (search?: string, page = 1, limit = 20) => {
   };
 };
 
+export const getUserDetail = async (userId: string) => {
+  const user = await User.findById(userId).select("-password -pin -twoFactorSecret").lean();
+  if (!user) throw ApiError.notFound("User not found");
+
+  const wallet = await Wallet.findOne({ userId }).lean();
+  const recentTransactions = await Transaction.find({ userId }).sort({ createdAt: -1 }).limit(10).lean();
+
+  return { user, wallet, recentTransactions };
+};
+
 export const toggleUserStatus = async (userId: string) => {
   const user = await User.findById(userId);
   if (!user) throw ApiError.notFound("User not found");

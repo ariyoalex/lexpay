@@ -50,6 +50,12 @@ export function listManageUsersApi(search?: string, page = 1, limit = 20) {
   }>(`/manage/users?${params.toString()}`);
 }
 
+export function getManageUserDetailApi(userId: string) {
+  return get<{ success: boolean; data: { user: ManageUser; wallet: any; recentTransactions: any[] } }>(
+    `/manage/users/${userId}`,
+  );
+}
+
 export function toggleUserStatusApi(userId: string) {
   return put<{ success: boolean; data: { userId: string; isActive: boolean } }>(
     `/manage/users/${userId}/toggle-status`,
