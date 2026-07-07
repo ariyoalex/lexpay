@@ -30,12 +30,12 @@ export const updateProfile = async (
   }
 
   await user.save();
-  const obj = user.toObject();
-  delete obj.password;
-  delete obj.pin;
-  delete obj.twoFactorSecret;
-  delete obj.refreshTokens;
-  return obj;
+  const userObj = user.toObject() as Record<string, any>;
+  delete userObj.password;
+  delete userObj.pin;
+  delete userObj.twoFactorSecret;
+  delete userObj.refreshTokens;
+  return userObj;
 };
 
 export const changePassword = async (userId: string, currentPassword: string, newPassword: string) => {

@@ -2,6 +2,7 @@ import config from "./config/index";
 import { errorHandler } from "./middleware/errorHandler";
 import authRoutes from "./modules/auth/auth.routes";
 import userRoutes from "./modules/user/user.routes";
+import walletRoutes from "./modules/wallet/wallet.routes";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -25,6 +26,7 @@ app.get("/health", (_req, res) => {
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/wallet", walletRoutes);
 
 app.use(errorHandler);
 

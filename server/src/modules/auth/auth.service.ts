@@ -1,13 +1,13 @@
-import crypto from "crypto";
-import User from "../../models/User";
-import Session from "../../models/Session";
 import OTP, { IOTP } from "../../models/OTP";
 import RefreshToken from "../../models/RefreshToken";
-import { signAccessToken, signRefreshToken, verifyRefreshToken, JwtPayload } from "../../utils/jwt";
-import { generateOtp, hashOtp, verifyOtpHash, generateTokenFamily } from "./auth.utils";
+import Session from "../../models/Session";
+import User from "../../models/User";
+import Wallet from "../../models/Wallet";
 import { ApiError } from "../../utils/apiError";
+import { JwtPayload, signAccessToken, signRefreshToken, verifyRefreshToken } from "../../utils/jwt";
+import { generateOtp, generateTokenFamily, hashOtp, verifyOtpHash } from "./auth.utils";
+import crypto from "crypto";
 
-const ACCESS_TOKEN_EXPIRY_MS = 15 * 60 * 1000;
 const REFRESH_TOKEN_EXPIRY_MS = 7 * 24 * 60 * 60 * 1000;
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000;
@@ -61,6 +61,8 @@ export const register = async (body: {
 
   const user = await User.create(body);
 
+  await Wallet.create({ userId: user._id });
+
   const otpCode = await sendOtp(user._id.toString(), "email_verification");
 
   return { userId: user._id, otpCode };
@@ -105,9 +107,12 @@ export const login = async (body: { email: string; password: string }, deviceInf
     isActive: true,
     expiresAt: new Date(Date.now() + REFRESH_TOKEN_EXPIRY_MS),
   });
-  const userObj = user.toObject();
-  const { password, pin, twoFactorSecret, refreshTokens, ...safeUser } = userObj;
-  return { ...tokens, user: safeUser };
+  const userObj = user.toObject() as Record<string, any>;
+  delete userObj.password;
+  delete userObj.pin;
+  delete userObj.twoFactorSecret;
+  delete userObj.refreshTokens;
+  return { ...tokens, user: userObj };
 };
 
 export const logout = async (refreshToken: string) => {
@@ -255,7 +260,8 @@ export const verify2FA = async (userId: string, code: string) => {
   if (!user) throw ApiError.badRequest("User not found");
   if (!user.isTwoFactorEnabled || !user.twoFactorSecret) throw ApiError.badRequest("2FA is not enabled");
 
-  const expected = crypto.createHmac("sha1", user.twoFactorSecret)
+  const expected = crypto
+    .createHmac("sha1", user.twoFactorSecret)
     .update(Math.floor(Date.now() / 30000).toString())
     .digest("hex")
     .slice(0, 6);
