@@ -144,6 +144,18 @@ export const leftMenuItems: MenuItem[] = [
     href: "/dashboards/wallet",
     children: [
       {
+        id: "send-money",
+        icon: "NiArrowUpRight",
+        label: "menu-send-money",
+        href: "/dashboards/send-money",
+      },
+      {
+        id: "beneficiaries",
+        icon: "NiUsers",
+        label: "menu-beneficiaries",
+        href: "/dashboards/beneficiaries",
+      },
+      {
         id: "fund-wallet",
         label: "menu-fund-wallet",
         href: "/dashboards/fund-wallet",
@@ -153,6 +165,12 @@ export const leftMenuItems: MenuItem[] = [
         id: "funding-success",
         label: "menu-funding-success",
         href: "/dashboards/funding-success",
+        hideInMenu: true,
+      },
+      {
+        id: "transfer-success",
+        label: "menu-transfer-success",
+        href: "/dashboards/transfer-success",
         hideInMenu: true,
       },
     ],

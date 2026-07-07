@@ -1,8 +1,10 @@
 import config from "./config/index";
 import { errorHandler } from "./middleware/errorHandler";
 import authRoutes from "./modules/auth/auth.routes";
+import beneficiaryRoutes from "./modules/beneficiary/beneficiary.routes";
 import paymentRoutes from "./modules/payment/payment.routes";
 import transactionRoutes from "./modules/transaction/transaction.routes";
+import transferRoutes from "./modules/transfer/transfer.routes";
 import userRoutes from "./modules/user/user.routes";
 import walletRoutes from "./modules/wallet/wallet.routes";
 import compression from "compression";
@@ -36,8 +38,10 @@ app.get("/health", (_req, res) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/wallet", walletRoutes);
+app.use("/api/v1/beneficiaries", beneficiaryRoutes);
 app.use("/api/v1/payments", paymentRoutes);
 app.use("/api/v1/transactions", transactionRoutes);
+app.use("/api/v1/transfers", transferRoutes);
 
 app.use(errorHandler);
 
