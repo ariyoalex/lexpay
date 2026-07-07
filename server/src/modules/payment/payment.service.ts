@@ -1,6 +1,7 @@
 import Transaction from "../../models/Transaction";
 import Wallet from "../../models/Wallet";
 import { ApiError } from "../../utils/apiError";
+import { createAndEmit } from "../notification/notification.service";
 import { balanceCacheKey, cacheDel, walletCacheKey } from "../wallet/wallet.cache";
 import * as paystack from "./payment.utils";
 
@@ -87,6 +88,8 @@ export const verifyPayment = async (userId: string, reference: string) => {
   await cacheDel(balanceCacheKey(userId));
   await cacheDel(walletCacheKey(userId));
 
+  createAndEmit(userId, "Wallet Funded", `₦${amountInNaira.toLocaleString()} added to your wallet`, { reference });
+
   return {
     status: "completed",
     amount: amountInNaira,
@@ -132,6 +135,13 @@ export const handleWebhook = async (event: string, body: any) => {
 
   await cacheDel(balanceCacheKey(txn.userId.toString()));
   await cacheDel(walletCacheKey(txn.userId.toString()));
+
+  createAndEmit(
+    txn.userId.toString(),
+    "Wallet Funded",
+    `₦${amountInNaira.toLocaleString()} added to your wallet via webhook`,
+    { reference },
+  );
 
   return { handled: true };
 };

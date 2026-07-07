@@ -1,7 +1,9 @@
 import app from "./app";
-import config from "./config/index";
 import connectDatabase from "./config/database";
+import config from "./config/index";
 import logger from "./config/logger";
+import { initSocket } from "./socket";
+import http from "http";
 
 const start = async () => {
   try {
@@ -10,7 +12,10 @@ const start = async () => {
     logger.warn("MongoDB not available, starting without database", { error });
   }
 
-  app.listen(config.port, () => {
+  const server = http.createServer(app);
+  initSocket(server);
+
+  server.listen(config.port, () => {
     logger.info(`LexPay server running on port ${config.port} in ${config.nodeEnv} mode`);
   });
 };

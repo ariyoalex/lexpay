@@ -1,6 +1,8 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface INotification extends Document {
+  createdAt: Date;
+  updatedAt: Date;
   userId: mongoose.Types.ObjectId;
   type: "email" | "in_app" | "push";
   title: string;

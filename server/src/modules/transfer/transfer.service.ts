@@ -6,6 +6,7 @@ import Wallet from "../../models/Wallet";
 import { ApiError } from "../../utils/apiError";
 import { decryptPin } from "../../utils/encryption";
 import { generateOtp, hashOtp, verifyOtpHash } from "../auth/auth.utils";
+import { createAndEmit } from "../notification/notification.service";
 
 const OTP_THRESHOLD = 50000;
 
@@ -134,6 +135,19 @@ export const initiateInternalTransfer = async (
     description: `Transfer from ${sender.email}`,
     metadata: { senderId: sender._id },
   });
+
+  createAndEmit(
+    senderId.toString(),
+    "Transfer Sent",
+    `₦${data.amount.toLocaleString()} sent to ${recipient.email || recipient.phone}. Fee: ₦${fee.toLocaleString()}`,
+    { reference },
+  );
+  createAndEmit(
+    recipient._id.toString(),
+    "Transfer Received",
+    `₦${data.amount.toLocaleString()} received from ${sender.email}`,
+    { reference },
+  );
 
   return {
     reference,

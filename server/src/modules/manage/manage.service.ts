@@ -3,6 +3,7 @@ import Transaction from "../../models/Transaction";
 import User from "../../models/User";
 import Wallet from "../../models/Wallet";
 import { ApiError } from "../../utils/apiError";
+import { createAndEmit } from "../notification/notification.service";
 import { balanceCacheKey, cacheDel, walletCacheKey } from "../wallet/wallet.cache";
 
 export const getDashboardStats = async () => {
@@ -195,14 +196,18 @@ export const getAnalytics = async (days = 30) => {
 
 export const broadcastNotification = async (title: string, message: string, target: "all" | "manage") => {
   const filter = target === "manage" ? { role: "manage" } : {};
-  const userCount = await User.countDocuments(filter);
+  const users = await User.find(filter).select("_id").lean();
+
+  for (const user of users) {
+    await createAndEmit(user._id.toString(), title, message);
+  }
 
   await AuditLog.create({
     action: "broadcast",
     resource: "notification",
-    details: { title, message, target, userCount },
+    details: { title, message, target, userCount: users.length },
     severity: "info",
   });
 
-  return { sent: true, userCount };
+  return { sent: true, userCount: users.length };
 };
