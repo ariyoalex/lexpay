@@ -8,6 +8,7 @@ const navItems = [
   { label: "Dashboard", path: "/manage/dashboard" },
   { label: "Users", path: "/manage/users" },
   { label: "Transactions", path: "/manage/transactions" },
+  { label: "Analytics", path: "/manage/analytics" },
   { label: "Audit Logs", path: "/manage/audit-logs" },
   { label: "Broadcast", path: "/manage/broadcast" },
 ];

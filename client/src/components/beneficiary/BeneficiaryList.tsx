@@ -1,7 +1,7 @@
 import { Box, IconButton, Paper, Typography } from "@mui/material";
 
+import NiBin from "@/icons/nexture/ni-bin-empty";
 import NiStar from "@/icons/nexture/ni-star";
-import NiTrash from "@/icons/nexture/ni-trash";
 import { type Beneficiary } from "@/services/beneficiaryApi";
 
 interface BeneficiaryListProps {
@@ -68,7 +68,7 @@ export default function BeneficiaryList({ beneficiaries, onToggleFavorite, onDel
               }}
               color="error"
             >
-              <NiTrash />
+              <NiBin />
             </IconButton>
           </Box>
         </Paper>
