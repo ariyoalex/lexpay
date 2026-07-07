@@ -8,6 +8,7 @@ import BackgroundWrapper from "@/components/layout/containers/background-wrapper
 import SnackbarWrapper from "@/components/layout/containers/snackbar-wrapper";
 import LayoutContextProvider from "@/components/layout/layout-context";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { WalletProvider } from "@/contexts/WalletContext";
 import Loading from "@/pages/loading";
 import AppRoutes from "@/routes";
 import ThemeProvider from "@/theme/theme-provider";
@@ -31,15 +32,17 @@ const App = () => {
 
           <ThemeProvider>
             <AuthProvider>
-              <LayoutContextProvider>
-                <BackgroundWrapper />
-                <SnackbarWrapper>
-                  <Suspense fallback={<Loading />}>
-                    {/* Routes */}
-                    <AppRoutes />
-                  </Suspense>
-                </SnackbarWrapper>
-              </LayoutContextProvider>
+              <WalletProvider>
+                <LayoutContextProvider>
+                  <BackgroundWrapper />
+                  <SnackbarWrapper>
+                    <Suspense fallback={<Loading />}>
+                      {/* Routes */}
+                      <AppRoutes />
+                    </Suspense>
+                  </SnackbarWrapper>
+                </LayoutContextProvider>
+              </WalletProvider>
             </AuthProvider>
           </ThemeProvider>
         </Box>

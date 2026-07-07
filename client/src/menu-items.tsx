@@ -136,6 +136,14 @@ export const leftMenuItems: MenuItem[] = [
     ],
   },
   {
+    id: "wallet",
+    icon: "NiWallet",
+    label: "menu-wallet",
+    description: "menu-wallet-description",
+    color: "text-primary",
+    href: "/dashboards/wallet",
+  },
+  {
     id: "applications",
     icon: "NiAirBalloon",
     label: "menu-applications",
