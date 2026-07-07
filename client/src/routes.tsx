@@ -2,6 +2,8 @@ import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import ProtectedRoute from "@/components/common/ProtectedRoute";
+import ManageRoute from "@/components/manage/ManageRoute";
+import ManageLayout from "@/layouts/ManageLayout";
 import { leftMenuBottomItems, leftMenuItems } from "@/menu-items";
 import AppLayout from "@/pages/app/layout";
 import AuthLayout from "@/pages/auth/layout";
@@ -20,6 +22,8 @@ const lazyLoad = (path: string) => {
     key = "./pages/page.tsx";
   } else if (path.startsWith("/auth")) {
     key = `./pages/auth${path.substring(5)}/page.tsx`; // Remove "/auth"
+  } else if (path.startsWith("/manage")) {
+    key = `./pages${path}/page.tsx`;
   } else {
     key = `./pages/app${path}/page.tsx`;
   }
@@ -113,6 +117,19 @@ const AppRoutes = () => {
         {/* Settings sub-routes */}
         {settingsRoutes}
       </Route>
+      {/* Manage routes with ManageLayout (manage role only) */}
+      <Route
+        element={
+          <ManageRoute>
+            <ManageLayout />
+          </ManageRoute>
+        }
+      >
+        <Route path="/manage/dashboard" element={lazyLoad("/manage/dashboard")} />
+        <Route path="/manage/users" element={lazyLoad("/manage/users")} />
+        <Route path="/manage/transactions" element={lazyLoad("/manage/transactions")} />
+      </Route>
+
       {/* Auth routes with AuthLayout */}
       <Route path="/auth" element={<AuthLayout />}>
         <Route index element={<Navigate to="/auth/sign-in" replace />} />
