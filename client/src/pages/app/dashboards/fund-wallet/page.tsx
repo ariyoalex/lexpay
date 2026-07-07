@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Box, Breadcrumbs, Button, FormControl, FormLabel, Input, Link, Paper, Typography } from "@mui/material";
@@ -15,11 +15,11 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
   const [methods, setMethods] = useState<FundingMethod[]>([]);
 
-  useState(() => {
+  useEffect(() => {
     getFundingMethodsApi()
       .then((res) => setMethods(res.data))
       .catch(() => {});
-  });
+  }, []);
 
   const handleSubmit = async () => {
     const numAmount = Number(amount);
@@ -47,7 +47,7 @@ export default function Page() {
           if (verifyRes.data.status === "completed") {
             clearInterval(checkInterval);
             await refreshBalance();
-            navigate(`/funding-success?reference=${paystackRef}&amount=${numAmount}`);
+            navigate(`/dashboards/funding-success?reference=${paystackRef}&amount=${numAmount}`);
           }
         } catch {
           // still pending
