@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import {
@@ -18,12 +18,13 @@ import {
   Typography,
 } from "@mui/material";
 
+import OtpInput from "@/components/common/OtpInput";
 import Logo from "@/components/logo/logo";
-import { DEFAULTS } from "@/config";
 import NiCheck from "@/icons/nexture/ni-check";
 import NiCross from "@/icons/nexture/ni-cross";
 import NiCrossSquare from "@/icons/nexture/ni-cross-square";
 import { cn } from "@/lib/utils";
+import { ApiError, post } from "@/services/api";
 
 const validationSchema = yup.object({
   password: yup
@@ -62,16 +63,38 @@ const InputErrorTooltip = ({ title }: InputErrorProps) => {
 
 export default function Page() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const email = (location.state as any)?.email || "";
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
 
   const formik = useFormik({
     initialValues: {
       password: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-      navigate(DEFAULTS.appRoot);
+    onSubmit: async (values) => {
+      setServerError(null);
+      const otp = code.join("");
+      if (otp.length !== 6) {
+        setServerError("Please enter the full 6-digit OTP code.");
+        return;
+      }
+      if (!email) {
+        setServerError("Email not found. Please go back and request a password reset.");
+        return;
+      }
+      try {
+        await post("/auth/reset-password", { email, code: otp, password: values.password });
+        navigate("/auth/sign-in");
+      } catch (err) {
+        if (err instanceof ApiError) {
+          setServerError(err.message);
+        } else {
+          setServerError("An unexpected error occurred. Please try again.");
+        }
+      }
     },
     validateOnBlur: false,
     validateOnMount: false,
@@ -107,7 +130,7 @@ export default function Page() {
                   Reset Password
                 </Typography>
                 <Typography variant="body1" className="text-text-primary">
-                  Get an email about how to reset your password securely.
+                  Enter the OTP sent to your email and choose a new password.
                 </Typography>
               </Box>
 
@@ -120,6 +143,11 @@ export default function Page() {
                   }}
                   className="flex flex-col"
                 >
+                  <FormControl className="outlined mb-4" variant="standard" size="small">
+                    <FormLabel component="label">OTP Code</FormLabel>
+                    <OtpInput value={code} onChange={setCode} />
+                  </FormControl>
+
                   <FormControl className="outlined" variant="standard" size="small">
                     <FormLabel component="label" className="flex flex-row">
                       Password{" "}
@@ -184,6 +212,13 @@ export default function Page() {
                     </Typography>
                   </FormControl>
 
+                  {serverError && (
+                    <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mb-4">
+                      <AlertTitle variant="subtitle2">Error</AlertTitle>
+                      <Typography variant="body2">{serverError}</Typography>
+                    </Alert>
+                  )}
+
                   {submitted && !formik.isValid && (
                     <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mb-4">
                       <AlertTitle variant="subtitle2">The following inputs have errors!</AlertTitle>
@@ -204,7 +239,7 @@ export default function Page() {
 
                   <Box className="flex flex-col gap-2">
                     <Button type="submit" variant="contained" className="mb-4">
-                      Continue
+                      Reset Password
                     </Button>
                   </Box>
 

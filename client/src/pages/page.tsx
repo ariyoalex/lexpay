@@ -1,24 +1,15 @@
-import LPCategoriesChart from "./landing-page/lp-categories-chart";
-import LPCurrencies from "./landing-page/lp-currencies";
 import LPFooter from "./landing-page/lp-footer";
-import LPHelp from "./landing-page/lp-help";
 import LPHero from "./landing-page/lp-hero";
-import LPInventory from "./landing-page/lp-inventory";
-import LPProgresses from "./landing-page/lp-progresses";
-import LPReviews from "./landing-page/lp-reviews";
-import LPSettings from "./landing-page/lp-settings";
-import LPShortcuts from "./landing-page/lp-shortcuts";
-import LPSources from "./landing-page/lp-sources";
-import LPStat from "./landing-page/lp-stat";
-import LPStats from "./landing-page/lp-stats";
-import LPStatsWider from "./landing-page/lp-stats-wider";
-import LpStocks from "./landing-page/lp-stocks";
-import LPSummary from "./landing-page/lp-summary";
-import LpTasks from "./landing-page/lp-tasks";
 import LPTopNav from "./landing-page/lp-top-nav";
-import LPUser from "./landing-page/lp-user";
 
-import { Box, Grid } from "@mui/material";
+import { Box, Card, Grid, Typography } from "@mui/material";
+
+import NiBag from "@/icons/nexture/ni-bag";
+import NiCells from "@/icons/nexture/ni-cells";
+import NiChartBar from "@/icons/nexture/ni-chart-bar";
+import NiFlash from "@/icons/nexture/ni-flash";
+import NiSendUpRight from "@/icons/nexture/ni-send-up-right";
+import NiShieldCheck from "@/icons/nexture/ni-shield-check";
 
 export default function Home() {
   return (
@@ -27,56 +18,97 @@ export default function Home() {
         <LPTopNav />
         <LPHero />
 
-        <Grid container spacing={5} className="flex w-[75rem] max-w-full">
-          <Grid size={{ lg: 4, md: 6, xs: 12 }}>
-            <LPSettings />
+        <Box className="mb-20 w-[75rem] max-w-full">
+          <Box className="mb-12 text-center">
+            <Typography variant="h2" component="h2" className="mb-4">
+              Everything you need to manage your money
+            </Typography>
+            <Typography variant="body1" className="text-text-secondary mx-auto max-w-xl">
+              From sending money to paying bills, LexPay gives you the tools to take control of your finances.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={3}>
+            <Grid size={{ lg: 4, md: 6, xs: 12 }}>
+              <Card className="flex flex-col items-center p-6 text-center">
+                <Box className="bg-primary-light/10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl">
+                  <NiSendUpRight className="text-primary" size="large" />
+                </Box>
+                <Typography variant="h5" className="mb-2 font-semibold">
+                  Send Money
+                </Typography>
+                <Typography variant="body2" className="text-text-secondary">
+                  Transfer money instantly to other LexPay users or bank accounts across Nigeria.
+                </Typography>
+              </Card>
+            </Grid>
+            <Grid size={{ lg: 4, md: 6, xs: 12 }}>
+              <Card className="flex flex-col items-center p-6 text-center">
+                <Box className="bg-secondary-light/10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl">
+                  <NiFlash className="text-secondary" size="large" />
+                </Box>
+                <Typography variant="h5" className="mb-2 font-semibold">
+                  Pay Bills
+                </Typography>
+                <Typography variant="body2" className="text-text-secondary">
+                  Pay electricity, cable TV, buy airtime and data bundles from your wallet.
+                </Typography>
+              </Card>
+            </Grid>
+            <Grid size={{ lg: 4, md: 6, xs: 12 }}>
+              <Card className="flex flex-col items-center p-6 text-center">
+                <Box className="bg-accent-1-light/10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl">
+                  <NiBag className="text-accent-1" size="large" />
+                </Box>
+                <Typography variant="h5" className="mb-2 font-semibold">
+                  Wallet Funding
+                </Typography>
+                <Typography variant="body2" className="text-text-secondary">
+                  Fund your wallet securely via bank transfer or card payments with Paystack.
+                </Typography>
+              </Card>
+            </Grid>
+            <Grid size={{ lg: 4, md: 6, xs: 12 }}>
+              <Card className="flex flex-col items-center p-6 text-center">
+                <Box className="bg-primary-light/10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl">
+                  <NiShieldCheck className="text-primary" size="large" />
+                </Box>
+                <Typography variant="h5" className="mb-2 font-semibold">
+                  Secure & Safe
+                </Typography>
+                <Typography variant="body2" className="text-text-secondary">
+                  Your money and data are protected with enterprise-grade encryption and security.
+                </Typography>
+              </Card>
+            </Grid>
+            <Grid size={{ lg: 4, md: 6, xs: 12 }}>
+              <Card className="flex flex-col items-center p-6 text-center">
+                <Box className="bg-secondary-light/10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl">
+                  <NiChartBar className="text-secondary" size="large" />
+                </Box>
+                <Typography variant="h5" className="mb-2 font-semibold">
+                  Track Spending
+                </Typography>
+                <Typography variant="body2" className="text-text-secondary">
+                  View your transaction history, categorize expenses, and track your financial health.
+                </Typography>
+              </Card>
+            </Grid>
+            <Grid size={{ lg: 4, md: 6, xs: 12 }}>
+              <Card className="flex flex-col items-center p-6 text-center">
+                <Box className="bg-accent-1-light/10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl">
+                  <NiCells className="text-accent-1" size="large" />
+                </Box>
+                <Typography variant="h5" className="mb-2 font-semibold">
+                  Savings Plans
+                </Typography>
+                <Typography variant="body2" className="text-text-secondary">
+                  Set savings goals and auto-deduct from your wallet to build your savings effortlessly.
+                </Typography>
+              </Card>
+            </Grid>
           </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }}>
-            <LPStat />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }} className="block md:hidden lg:block">
-            <LPUser />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }}>
-            <LPStats />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }}>
-            <LPCategoriesChart />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }} className="block md:hidden lg:block">
-            <LPSources />
-          </Grid>
-          <Grid size={{ lg: 6, xs: 12 }}>
-            <LPHelp />
-          </Grid>
-          <Grid size={{ lg: 6, xs: 12 }}>
-            <LPReviews />
-          </Grid>
-          <Grid size={{ lg: 6, xs: 12 }}>
-            <LPCurrencies />
-          </Grid>
-          <Grid size={{ lg: 6, xs: 12 }}>
-            <LPProgresses />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }}>
-            <LpTasks />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }}>
-            <LpStocks />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }} className="block md:hidden lg:block">
-            <LPSummary />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }}>
-            <LPInventory />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }}>
-            <LPStatsWider />
-          </Grid>
-          <Grid size={{ lg: 4, md: 6, xs: 12 }} className="block md:hidden lg:block">
-            <LPShortcuts />
-          </Grid>
-        </Grid>
+        </Box>
       </Box>
 
       <LPFooter />

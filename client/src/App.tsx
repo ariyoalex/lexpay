@@ -7,6 +7,7 @@ import { Box, StyledEngineProvider } from "@mui/material";
 import BackgroundWrapper from "@/components/layout/containers/background-wrapper";
 import SnackbarWrapper from "@/components/layout/containers/snackbar-wrapper";
 import LayoutContextProvider from "@/components/layout/layout-context";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Loading from "@/pages/loading";
 import AppRoutes from "@/routes";
 import ThemeProvider from "@/theme/theme-provider";
@@ -29,15 +30,17 @@ const App = () => {
           {/* Initial loader end */}
 
           <ThemeProvider>
-            <LayoutContextProvider>
-              <BackgroundWrapper />
-              <SnackbarWrapper>
-                <Suspense fallback={<Loading />}>
-                  {/* Routes */}
-                  <AppRoutes />
-                </Suspense>
-              </SnackbarWrapper>
-            </LayoutContextProvider>
+            <AuthProvider>
+              <LayoutContextProvider>
+                <BackgroundWrapper />
+                <SnackbarWrapper>
+                  <Suspense fallback={<Loading />}>
+                    {/* Routes */}
+                    <AppRoutes />
+                  </Suspense>
+                </SnackbarWrapper>
+              </LayoutContextProvider>
+            </AuthProvider>
           </ThemeProvider>
         </Box>
       </StyledEngineProvider>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import ProtectedRoute from "@/components/common/ProtectedRoute";
 import { leftMenuBottomItems, leftMenuItems } from "@/menu-items";
 import AppLayout from "@/pages/app/layout";
 import AuthLayout from "@/pages/auth/layout";
@@ -71,6 +72,9 @@ const generateAuthRoutes = (): React.ReactElement[] => {
     <Route key="set-verification" path="set-verification" element={lazyLoad("/auth/set-verification")} />,
     <Route key="terms-and-conditions" path="terms-and-conditions" element={lazyLoad("/auth/terms-and-conditions")} />,
     <Route key="privacy-policy" path="privacy-policy" element={lazyLoad("/auth/privacy-policy")} />,
+    <Route key="verify-email" path="verify-email" element={lazyLoad("/auth/verify-email")} />,
+    <Route key="verify-phone" path="verify-phone" element={lazyLoad("/auth/verify-phone")} />,
+    <Route key="two-factor" path="two-factor" element={lazyLoad("/auth/two-factor")} />,
   ];
 };
 
@@ -85,8 +89,14 @@ const AppRoutes = () => {
     <Routes>
       {/* Landing page route */}
       <Route path="/" element={lazyLoad("/")} />
-      {/* App routes with AppLayout */}
-      <Route element={<AppLayout />}>
+      {/* App routes with AppLayout (protected) */}
+      <Route
+        element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        }
+      >
         {/* Routes generated from menu items */}
         {mainRoutes}
         {bottomRoutes}

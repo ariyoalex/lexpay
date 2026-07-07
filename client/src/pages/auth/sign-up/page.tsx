@@ -20,16 +20,19 @@ import {
 
 import Logo from "@/components/logo/logo";
 import { DEFAULTS } from "@/config";
+import { useAuth } from "@/contexts/AuthContext";
 import NiCheck from "@/icons/nexture/ni-check";
 import NiCross from "@/icons/nexture/ni-cross";
 import NiCrossSquare from "@/icons/nexture/ni-cross-square";
 import { cn } from "@/lib/utils";
+import { ApiError } from "@/services/api";
 import { useThemeContext } from "@/theme/theme-provider";
 
 const validationSchema = yup.object({
-  name: yup.string().required("The field is required").min(3, "Should be at least 3 characters"),
+  firstName: yup.string().required("The field is required").min(2, "Should be at least 2 characters"),
+  lastName: yup.string().required("The field is required").min(2, "Should be at least 2 characters"),
   email: yup.string().required("The field is required").email("Enter a valid email"),
-  company: yup.string().required("The field is required").min(3, "Should be at least 3 characters"),
+  phone: yup.string().required("The field is required").min(10, "Should be at least 10 characters"),
   password: yup
     .string()
     .required("The field is required")
@@ -66,20 +69,32 @@ const InputErrorTooltip = ({ title }: InputErrorProps) => {
 
 export default function Page() {
   const navigate = useNavigate();
+  const { register } = useAuth();
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const { isDarkMode } = useThemeContext();
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
-      company: "",
+      phone: "",
       password: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-      navigate(DEFAULTS.appRoot);
+    onSubmit: async (values) => {
+      setServerError(null);
+      try {
+        await register(values);
+        navigate(DEFAULTS.appRoot);
+      } catch (err) {
+        if (err instanceof ApiError) {
+          setServerError(err.message);
+        } else {
+          setServerError("An unexpected error occurred. Please try again.");
+        }
+      }
     },
     validateOnBlur: false,
     validateOnMount: false,
@@ -177,14 +192,33 @@ export default function Page() {
                 >
                   <FormControl className="outlined" variant="standard" size="small">
                     <FormLabel component="label" className="flex flex-row">
-                      Name{" "}
-                      {formik.touched.name && formik.errors.name && <InputErrorTooltip title={formik.errors.name} />}
+                      First Name{" "}
+                      {formik.touched.firstName && formik.errors.firstName && (
+                        <InputErrorTooltip title={formik.errors.firstName} />
+                      )}
                     </FormLabel>
                     <Input
-                      id="name"
-                      name="name"
+                      id="firstName"
+                      name="firstName"
                       placeholder=""
-                      value={formik.values.name}
+                      value={formik.values.firstName}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </FormControl>
+
+                  <FormControl className="outlined" variant="standard" size="small">
+                    <FormLabel component="label" className="flex flex-row">
+                      Last Name{" "}
+                      {formik.touched.lastName && formik.errors.lastName && (
+                        <InputErrorTooltip title={formik.errors.lastName} />
+                      )}
+                    </FormLabel>
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      placeholder=""
+                      value={formik.values.lastName}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
@@ -207,16 +241,14 @@ export default function Page() {
 
                   <FormControl className="outlined" variant="standard" size="small">
                     <FormLabel component="label" className="flex flex-row">
-                      Company{" "}
-                      {formik.touched.company && formik.errors.company && (
-                        <InputErrorTooltip title={formik.errors.company} />
-                      )}
+                      Phone{" "}
+                      {formik.touched.phone && formik.errors.phone && <InputErrorTooltip title={formik.errors.phone} />}
                     </FormLabel>
                     <Input
-                      id="company"
-                      name="company"
+                      id="phone"
+                      name="phone"
                       placeholder=""
-                      value={formik.values.company}
+                      value={formik.values.phone}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
@@ -285,6 +317,14 @@ export default function Page() {
                       </span>
                     </Typography>
                   </FormControl>
+
+                  {serverError && (
+                    <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mb-4">
+                      <AlertTitle variant="subtitle2">Error</AlertTitle>
+                      <Typography variant="body2">{serverError}</Typography>
+                    </Alert>
+                  )}
+
                   {submitted && !formik.isValid && (
                     <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mb-4">
                       <AlertTitle variant="subtitle2">The following inputs have errors!</AlertTitle>

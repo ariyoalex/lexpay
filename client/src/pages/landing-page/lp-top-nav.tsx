@@ -1,4 +1,3 @@
-import { t } from "i18next";
 import { Link } from "react-router-dom";
 
 import { Box, Button } from "@mui/material";
@@ -17,43 +16,18 @@ export default function LPTopNav() {
           size="large"
           color="text-primary"
           to="/auth/sign-in"
-          target="_blank"
           component={Link}
         >
-          {t("landing-view")}
+          Sign In
         </Button>
         <Button
           className="min-w-0! px-2! lg:px-4!"
-          variant="text"
+          variant="contained"
           size="large"
-          color="text-primary"
-          to="/docs/welcome/introduction"
-          target="_blank"
+          to="/auth/sign-up"
           component={Link}
         >
-          {t("footer-docs")}
-        </Button>
-        <Button
-          className="min-w-0! px-2! lg:px-4!"
-          variant="text"
-          size="large"
-          color="text-primary"
-          target="_blank"
-          to="https://www.figma.com/community/tag/lexpay"
-          component={Link}
-        >
-          {t("footer-figma")}
-        </Button>
-        <Button
-          className="min-w-0! px-2! lg:px-4!"
-          variant="text"
-          size="large"
-          color="text-primary"
-          target="_blank"
-          to="https://1.envato.market/k4z0"
-          component={Link}
-        >
-          {t("footer-purchase")}
+          Get Started
         </Button>
       </Box>
     </Box>

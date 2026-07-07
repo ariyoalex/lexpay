@@ -1,21 +1,19 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { Alert, AlertTitle, Box, Button, Divider, FormLabel, Paper, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Button, FormLabel, Paper, Typography } from "@mui/material";
 
 import OtpInput from "@/components/common/OtpInput";
 import Logo from "@/components/logo/logo";
+import { DEFAULTS } from "@/config";
 import NiCrossSquare from "@/icons/nexture/ni-cross-square";
 import { ApiError, post } from "@/services/api";
 
 export default function Page() {
-  const location = useLocation();
   const navigate = useNavigate();
-  const email = (location.state as any)?.email || "";
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -25,14 +23,10 @@ export default function Page() {
       setError("Please enter the full 6-digit code.");
       return;
     }
-    if (!email) {
-      setError("Email not found. Please request a new code.");
-      return;
-    }
     setLoading(true);
     try {
-      await post("/auth/verify-email", { email, code: otp });
-      setSuccess(true);
+      await post("/auth/verify-2fa", { code: otp });
+      navigate(DEFAULTS.appRoot);
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.message);
@@ -43,31 +37,6 @@ export default function Page() {
       setLoading(false);
     }
   };
-
-  if (success) {
-    return (
-      <Box className="bg-waves flex min-h-screen w-full items-center justify-center bg-cover bg-center p-4">
-        <Paper elevation={3} className="bg-background-paper shadow-darker-xs w-[32rem] max-w-full rounded-4xl py-14">
-          <Box className="flex flex-col gap-4 px-8 sm:px-14">
-            <Box className="flex flex-col">
-              <Box className="mb-14 flex justify-center">
-                <Logo classNameMobile="hidden" />
-              </Box>
-              <Alert severity="success">
-                <AlertTitle>Verified!</AlertTitle>
-                Your email has been verified successfully.
-              </Alert>
-              <Box className="mt-4 flex flex-col gap-2">
-                <Button variant="contained" onClick={() => navigate("/auth/sign-in")}>
-                  Sign In
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-        </Paper>
-      </Box>
-    );
-  }
 
   return (
     <Box className="bg-waves flex min-h-screen w-full items-center justify-center bg-cover bg-center p-4">
@@ -81,17 +50,17 @@ export default function Page() {
             <Box className="flex flex-col gap-10">
               <Box className="flex flex-col">
                 <Typography variant="h1" component="h1" className="mb-2">
-                  Verification
+                  Two-Factor Authentication
                 </Typography>
                 <Typography variant="body1" className="text-text-primary">
-                  Please enter your 6 digit code that was sent to your email.
+                  Enter the 6-digit code from your authenticator app.
                 </Typography>
               </Box>
 
               <Box className="flex flex-col gap-5">
                 <Box component={"form"} onSubmit={handleSubmit} className="flex flex-col">
                   <Box className="flex flex-col">
-                    <FormLabel component="label">Verification Code</FormLabel>
+                    <FormLabel component="label">Authentication Code</FormLabel>
                     <OtpInput value={code} onChange={setCode} disabled={loading} />
                   </Box>
 
@@ -104,23 +73,10 @@ export default function Page() {
 
                   <Box className="mt-4 flex flex-col gap-2">
                     <Button type="submit" variant="contained" className="mb-4" disabled={loading}>
-                      {loading ? "Verifying..." : "Continue"}
+                      {loading ? "Verifying..." : "Verify"}
                     </Button>
                   </Box>
                 </Box>
-              </Box>
-              <Divider className="text-text-secondary my-0 text-sm"></Divider>
-              <Box className="flex flex-col">
-                <Typography variant="h6" component="h6">
-                  Did not get the code?
-                </Typography>
-                <Typography variant="body1" className="text-text-secondary">
-                  If you have not received the code, please{" "}
-                  <Link to="/auth/get-verification" className="link-primary link-underline-hover">
-                    resend
-                  </Link>
-                  .
-                </Typography>
               </Box>
             </Box>
           </Box>

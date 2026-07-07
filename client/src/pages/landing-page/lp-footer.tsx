@@ -1,57 +1,55 @@
-import { t } from "i18next";
 import { Link } from "react-router-dom";
 
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 export default function LPFooter() {
   return (
-    <Box className="border-grey-100 mt-16 flex h-16 w-full flex-none items-center justify-center border-t">
-      <Box className="flex flex-row gap-1">
+    <Box className="border-grey-100 mt-16 flex w-full flex-col items-center border-t py-8">
+      <Box className="flex flex-row flex-wrap justify-center gap-1 px-4">
         <Button
           className="min-w-0! px-2! lg:px-4!"
           variant="text"
-          size="large"
+          size="small"
           color="text-primary"
           to="/auth/sign-in"
-          target="_blank"
           component={Link}
         >
-          {t("landing-view")}
+          Sign In
         </Button>
         <Button
           className="min-w-0! px-2! lg:px-4!"
           variant="text"
-          size="large"
+          size="small"
           color="text-primary"
-          to="/docs/welcome/introduction"
-          target="_blank"
+          to="/auth/sign-up"
           component={Link}
         >
-          {t("footer-docs")}
+          Sign Up
         </Button>
         <Button
           className="min-w-0! px-2! lg:px-4!"
           variant="text"
-          size="large"
+          size="small"
           color="text-primary"
-          target="_blank"
-          to="https://www.figma.com/community/tag/lexpay"
+          to="/auth/terms-and-conditions"
           component={Link}
         >
-          {t("footer-figma")}
+          Terms & Conditions
         </Button>
         <Button
           className="min-w-0! px-2! lg:px-4!"
           variant="text"
-          size="large"
+          size="small"
           color="text-primary"
-          target="_blank"
-          to="https://1.envato.market/k4z0"
+          to="/auth/privacy-policy"
           component={Link}
         >
-          {t("footer-purchase")}
+          Privacy Policy
         </Button>
       </Box>
+      <Typography variant="body2" className="text-text-secondary mt-4">
+        &copy; {new Date().getFullYear()} LexPay. All rights reserved.
+      </Typography>
     </Box>
   );
 }

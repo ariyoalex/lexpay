@@ -22,9 +22,11 @@ import {
 
 import Logo from "@/components/logo/logo";
 import { DEFAULTS } from "@/config";
+import { useAuth } from "@/contexts/AuthContext";
 import NiCrossSquare from "@/icons/nexture/ni-cross-square";
 import NiEyeClose from "@/icons/nexture/ni-eye-close";
 import NiEyeOpen from "@/icons/nexture/ni-eye-open";
+import { ApiError } from "@/services/api";
 import { useThemeContext } from "@/theme/theme-provider";
 
 const validationSchema = yup.object({
@@ -53,7 +55,9 @@ const InputErrorTooltip = ({ title }: InputErrorProps) => {
 
 export default function Page() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const { isDarkMode } = useThemeContext();
 
   const formik = useFormik({
@@ -62,9 +66,18 @@ export default function Page() {
       password: "lexpay123",
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-      navigate(DEFAULTS.appRoot);
+    onSubmit: async (values) => {
+      setServerError(null);
+      try {
+        await login(values.email, values.password);
+        navigate(DEFAULTS.appRoot);
+      } catch (err) {
+        if (err instanceof ApiError) {
+          setServerError(err.message);
+        } else {
+          setServerError("An unexpected error occurred. Please try again.");
+        }
+      }
     },
     validateOnBlur: false,
     validateOnMount: false,
@@ -206,6 +219,13 @@ export default function Page() {
                       }
                     />
                   </FormControl>
+
+                  {serverError && (
+                    <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mb-4">
+                      <AlertTitle variant="subtitle2">Error</AlertTitle>
+                      <Typography variant="body2">{serverError}</Typography>
+                    </Alert>
+                  )}
 
                   {submitted && !formik.isValid && (
                     <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mb-4">

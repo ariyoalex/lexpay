@@ -1,19 +1,45 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Box, Button, Divider, FormControl, FormLabel, Input, Paper, Typography } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Divider,
+  FormControl,
+  FormLabel,
+  Input,
+  Paper,
+  Typography,
+} from "@mui/material";
 
 import Logo from "@/components/logo/logo";
+import NiCrossSquare from "@/icons/nexture/ni-cross-square";
+import { ApiError, post } from "@/services/api";
 
 export default function Page() {
   const navigate = useNavigate();
-  const [data, setData] = useState({
-    email: "",
-  });
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    navigate("/");
+    setError(null);
+    setLoading(true);
+    try {
+      await post("/auth/forgot-password", { email });
+      navigate("/auth/password-sent", { state: { email } });
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,16 +65,19 @@ export default function Page() {
                 <Box component={"form"} onSubmit={handleSubmit} className="flex flex-col">
                   <FormControl className="outlined" variant="standard" size="small">
                     <FormLabel component="label">Email</FormLabel>
-                    <Input
-                      placeholder=""
-                      value={data.email}
-                      onChange={(e) => setData({ ...data, email: e.target.value })}
-                    />
+                    <Input placeholder="" value={email} onChange={(e) => setEmail(e.target.value)} required />
                   </FormControl>
 
+                  {error && (
+                    <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mb-4">
+                      <AlertTitle variant="subtitle2">Error</AlertTitle>
+                      <Typography variant="body2">{error}</Typography>
+                    </Alert>
+                  )}
+
                   <Box className="flex flex-col gap-2">
-                    <Button type="submit" variant="contained" className="mb-4">
-                      Continue
+                    <Button type="submit" variant="contained" className="mb-4" disabled={loading}>
+                      {loading ? "Sending..." : "Continue"}
                     </Button>
                   </Box>
 

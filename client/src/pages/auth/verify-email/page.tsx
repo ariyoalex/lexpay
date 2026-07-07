@@ -1,37 +1,40 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import {
-  Alert,
-  AlertTitle,
-  Box,
-  Button,
-  Divider,
-  FormControl,
-  FormLabel,
-  Input,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Alert, AlertTitle, Box, Button, Divider, FormLabel, Paper, Typography } from "@mui/material";
 
+import OtpInput from "@/components/common/OtpInput";
 import Logo from "@/components/logo/logo";
+import { useAuth } from "@/contexts/AuthContext";
 import NiCrossSquare from "@/icons/nexture/ni-cross-square";
 import { ApiError, post } from "@/services/api";
 
 export default function Page() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const { user } = useAuth();
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [sent, setSent] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const email = user?.email || "";
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError(null);
+    const otp = code.join("");
+    if (otp.length !== 6) {
+      setError("Please enter the full 6-digit code.");
+      return;
+    }
+    if (!email) {
+      setError("No email found. Please sign in again.");
+      return;
+    }
     setLoading(true);
     try {
-      await post("/auth/forgot-password", { email });
-      setSent(true);
+      await post("/auth/verify-email", { email, code: otp });
+      setSuccess(true);
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.message);
@@ -43,7 +46,7 @@ export default function Page() {
     }
   };
 
-  if (sent) {
+  if (success) {
     return (
       <Box className="bg-waves flex min-h-screen w-full items-center justify-center bg-cover bg-center p-4">
         <Paper elevation={3} className="bg-background-paper shadow-darker-xs w-[32rem] max-w-full rounded-4xl py-14">
@@ -52,26 +55,14 @@ export default function Page() {
               <Box className="mb-14 flex justify-center">
                 <Logo classNameMobile="hidden" />
               </Box>
-              <Box className="flex flex-col gap-10">
-                <Typography variant="h1" component="h1" className="mb-2">
-                  Verification
-                </Typography>
-                <Alert severity="success">
-                  <AlertTitle>OTP Sent</AlertTitle>A verification code has been sent to {email}.
-                </Alert>
-                <Box className="flex flex-col gap-2">
-                  <Button variant="contained" onClick={() => navigate("/auth/set-verification", { state: { email } })}>
-                    Enter Code
-                  </Button>
-                </Box>
-                <Divider className="text-text-secondary my-0 text-sm" />
-                <Typography variant="body1" className="text-text-secondary">
-                  If you already have the code, please{" "}
-                  <Link to="/auth/set-verification" className="link-primary link-underline-hover">
-                    submit
-                  </Link>{" "}
-                  here.
-                </Typography>
+              <Alert severity="success">
+                <AlertTitle>Verified!</AlertTitle>
+                Your email has been verified successfully.
+              </Alert>
+              <Box className="mt-4 flex flex-col gap-2">
+                <Button variant="contained" onClick={() => navigate("/")}>
+                  Continue
+                </Button>
               </Box>
             </Box>
           </Box>
@@ -92,30 +83,30 @@ export default function Page() {
             <Box className="flex flex-col gap-10">
               <Box className="flex flex-col">
                 <Typography variant="h1" component="h1" className="mb-2">
-                  Verification
+                  Verify Email
                 </Typography>
                 <Typography variant="body1" className="text-text-primary">
-                  Enter your email to receive a verification code.
+                  Enter the 6-digit code sent to {email || "your email"}.
                 </Typography>
               </Box>
 
               <Box className="flex flex-col gap-5">
                 <Box component={"form"} onSubmit={handleSubmit} className="flex flex-col">
-                  <FormControl className="outlined" variant="standard" size="small">
-                    <FormLabel component="label">Email</FormLabel>
-                    <Input placeholder="" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                  </FormControl>
+                  <Box className="flex flex-col">
+                    <FormLabel component="label">Verification Code</FormLabel>
+                    <OtpInput value={code} onChange={setCode} disabled={loading} />
+                  </Box>
 
                   {error && (
-                    <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mb-4">
+                    <Alert severity="error" icon={<NiCrossSquare />} className="neutral bg-background-paper/60! mt-4">
                       <AlertTitle variant="subtitle2">Error</AlertTitle>
                       <Typography variant="body2">{error}</Typography>
                     </Alert>
                   )}
 
-                  <Box className="flex flex-col gap-2">
+                  <Box className="mt-4 flex flex-col gap-2">
                     <Button type="submit" variant="contained" className="mb-4" disabled={loading}>
-                      {loading ? "Sending..." : "Continue"}
+                      {loading ? "Verifying..." : "Verify"}
                     </Button>
                   </Box>
                 </Box>
@@ -123,14 +114,12 @@ export default function Page() {
               <Divider className="text-text-secondary my-0 text-sm"></Divider>
               <Box className="flex flex-col">
                 <Typography variant="h6" component="h6">
-                  Already have the code?
+                  Did not get the code?
                 </Typography>
                 <Typography variant="body1" className="text-text-secondary">
-                  If you have the code, please{" "}
-                  <Link to="/auth/set-verification" className="link-primary link-underline-hover">
-                    submit
-                  </Link>{" "}
-                  here.
+                  <Link to="/auth/get-verification" className="link-primary link-underline-hover">
+                    Resend
+                  </Link>
                 </Typography>
               </Box>
             </Box>
