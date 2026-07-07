@@ -21,6 +21,8 @@ export interface ErrorResponse {
   };
 }
 
+import { Response } from "express";
+
 export const successResponse = <T>(
   data: T,
   message = "Operation completed successfully",
@@ -31,6 +33,16 @@ export const successResponse = <T>(
   data,
   ...(meta ? { meta } : {}),
 });
+
+export const sendSuccess = <T>(
+  res: Response,
+  data: T,
+  message = "Operation completed successfully",
+  meta?: ApiResponseMeta,
+  statusCode = 200,
+): void => {
+  res.status(statusCode).json(successResponse(data, message, meta));
+};
 
 export const errorResponse = (message: string, code = "INTERNAL_ERROR", details?: unknown): ErrorResponse => ({
   success: false,

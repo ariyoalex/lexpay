@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import config from "./config/index";
 import { errorHandler } from "./middleware/errorHandler";
+import authRoutes from "./modules/auth/auth.routes";
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(morgan(config.nodeEnv === "production" ? "combined" : "dev"));
 app.get("/health", (_req, res) => {
   res.json({ success: true, message: "LexPay API is running", timestamp: new Date().toISOString() });
 });
+
+app.use("/api/v1/auth", authRoutes);
 
 app.use(errorHandler);
 
