@@ -1,6 +1,7 @@
 import { useAuth } from "./AuthContext";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useState } from "react";
 
+import NotificationToast, { type ToastMessage } from "@/components/notification/NotificationToast";
 import {
   listNotificationsApi,
   markAllNotificationsReadApi,
@@ -13,6 +14,8 @@ interface NotificationContextType {
   notifications: NotificationItem[];
   unreadCount: number;
   loading: boolean;
+  latestToast: ToastMessage | null;
+  dismissToast: () => void;
   markRead: (id: string) => Promise<void>;
   markAllRead: () => Promise<void>;
   refresh: () => Promise<void>;
@@ -25,7 +28,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [latestToast, setLatestToast] = useState<ToastMessage | null>(null);
   const connectedRef = useRef(false);
+
+  const dismissToast = useCallback(() => setLatestToast(null), []);
 
   const refresh = useCallback(async () => {
     try {
@@ -56,6 +62,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       socket.on("notification", (data: NotificationItem) => {
         setNotifications((prev) => [data, ...prev]);
         setUnreadCount((prev) => prev + 1);
+        setLatestToast({ id: data._id, title: data.title, message: data.message });
       });
 
       connectedRef.current = true;
@@ -88,8 +95,11 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <NotificationContext.Provider value={{ notifications, unreadCount, loading, markRead, markAllRead, refresh }}>
+    <NotificationContext.Provider
+      value={{ notifications, unreadCount, loading, latestToast, dismissToast, markRead, markAllRead, refresh }}
+    >
       {children}
+      <NotificationToast toast={latestToast} onClose={dismissToast} />
     </NotificationContext.Provider>
   );
 }

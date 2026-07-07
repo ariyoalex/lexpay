@@ -118,6 +118,8 @@ const AppRoutes = () => {
         {settingsRoutes}
         {/* KYC route */}
         <Route path="/dashboards/kyc" element={lazyLoad("/dashboards/kyc")} />
+        {/* Notifications route */}
+        <Route path="/dashboards/notifications" element={lazyLoad("/dashboards/notifications")} />
       </Route>
       {/* Manage routes with ManageLayout (manage role only) */}
       <Route

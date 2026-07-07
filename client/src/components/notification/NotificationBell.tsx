@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Badge,
   Box,
+  Button,
   ClickAwayListener,
   IconButton,
   List,
@@ -16,6 +18,7 @@ import { useNotifications } from "@/contexts/NotificationContext";
 import NiBell from "@/icons/nexture/ni-bell";
 
 export default function NotificationBell() {
+  const navigate = useNavigate();
   const { notifications, unreadCount, markRead, markAllRead, refresh } = useNotifications();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
@@ -86,6 +89,18 @@ export default function NotificationBell() {
                 ))}
               </List>
             )}
+            <Box sx={{ borderTop: "1px solid", borderColor: "divider", p: 1 }}>
+              <Button
+                fullWidth
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/dashboards/notifications");
+                }}
+              >
+                View all
+              </Button>
+            </Box>
           </Paper>
         )}
       </Box>
