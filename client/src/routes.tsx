@@ -116,6 +116,8 @@ const AppRoutes = () => {
         {bottomRoutes}
         {/* Settings sub-routes */}
         {settingsRoutes}
+        {/* KYC route */}
+        <Route path="/dashboards/kyc" element={lazyLoad("/dashboards/kyc")} />
       </Route>
       {/* Manage routes with ManageLayout (manage role only) */}
       <Route
@@ -131,6 +133,7 @@ const AppRoutes = () => {
         <Route path="/manage/analytics" element={lazyLoad("/manage/analytics")} />
         <Route path="/manage/audit-logs" element={lazyLoad("/manage/audit-logs")} />
         <Route path="/manage/broadcast" element={lazyLoad("/manage/broadcast")} />
+        <Route path="/manage/kyc-review" element={lazyLoad("/manage/kyc-review")} />
       </Route>
 
       {/* Auth routes with AuthLayout */}

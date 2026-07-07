@@ -36,8 +36,9 @@ async function tryRefresh(): Promise<string | null> {
 
 export async function request<T = any>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const token = getAccessToken();
+  const isFormData = options.body instanceof FormData;
   const headers: Record<string, string> = {
-    "Content-Type": "application/json",
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
     ...(options.headers as Record<string, string>),
   };
 
@@ -84,10 +85,11 @@ export function get<T = any>(endpoint: string, params?: Record<string, string>) 
   return request<T>(`${endpoint}${searchParams}`, { method: "GET" });
 }
 
-export function post<T = any>(endpoint: string, body?: any) {
+export function post<T = any>(endpoint: string, body?: any, extraOptions?: RequestInit) {
   return request<T>(endpoint, {
     method: "POST",
-    body: body ? JSON.stringify(body) : undefined,
+    body: body instanceof FormData ? body : body ? JSON.stringify(body) : undefined,
+    ...extraOptions,
   });
 }
 
